@@ -74,15 +74,7 @@ const Login = () => {
           ?<p>Already have an account? <span onClick={()=>{setState('Login')}} className='text-primary underline cursor-pointer'>Login here</span></p>
           :<p>Create an new account? <span onClick={()=>{setState('Sign Up')}} className='text-primary underline cursor-pointer'>click here</span></p>
         }
-        <p>
-  Admin Login 
-  <span 
-    onClick={() => window.location.href = 'https://doctor-appointment-admin-five.vercel.app/login'} 
-    className="text-primary underline cursor-pointer"
-  >
-    Click here
-  </span>
-</p>
+       
       </div>
     </form>
   ) 

@@ -13,6 +13,7 @@ import Footer from './components/Footer'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 const App = () => {
   return (
     <div className='mx-4 sm:mx-[10%]'>
@@ -25,7 +26,7 @@ const App = () => {
         <Route path="/about" element={<About/>}/>
         <Route path="/my-profile" element={<MyProfile/>}/>
         <Route path="/doctors/:speciality" element={<Doctors/>}/>
-        <Route path="/user-login" element={<Login/>}/>
+        <Route path="/login" element={<Login/>}/>
         <Route path="/my-appointments" element={<MyAppointments/>}/>
         <Route path="/appointments/:docId" element={<Appointment/>}/>
       </Routes>
