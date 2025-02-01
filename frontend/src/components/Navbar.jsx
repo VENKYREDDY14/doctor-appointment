@@ -46,7 +46,7 @@ const Navbar = () => {
                 </div>
             </div>
         </div>:<><button onClick={()=>{navigate('/login')}} className='bg-primary px-8 py-3 text-white rounded-full font-light hidden md:block'>Create account</button>
-        <a href='https://doctor-appointment-admin-five.vercel.app/' target='_blank'>HII</a>
+        
                </>
         }
         <img onClick={()=>{setShowMenu(true)}} src={assets.menu_icon} alt="" className='w-6 md:hidden'/>
