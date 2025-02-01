@@ -36,7 +36,7 @@ const Login = () => {
                 }
             }
         }catch(error){
-
+            toast.error(error.message)
         }
     }
     
@@ -58,6 +58,15 @@ const Login = () => {
                 ?<p>Doctor Login? <span className='text-primary underline cursor-pointer' onClick={()=>{setState('Doctor')}}>Click here</span></p>
                 :<p>Admin Login? <span className='text-primary underline cursor-pointer' onClick={()=>setState('Admin')}>Click here</span></p>
             }
+             <p>
+  User Login 
+  <span 
+    onClick={() => window.location.href = 'https://doctor-appointment-brown.vercel.app/login'} 
+    className="text-primary underline cursor-pointer"
+  >
+    Click here
+  </span>
+</p>
         </div>
     </form>
   )
