@@ -34,6 +34,7 @@ const Navbar = () => {
         </NavLink>
       </ul>
       <div className='flex items-center gap-4'>
+      <a href='https://doctor-appointment-admin-five.vercel.app/' target='_blank'><button className='border rounded-full border-gray-600 px-4 py-1 hover:bg-primary hover:text-white hover:border-primary'>Admin</button></a>
         {token && userData?<div className='flex items-center gap-2 cursor-pointer group relative'>
             <img src={userData.image} className='w-8 rounded-full' alt=""/>
             <img src={assets.dropdown_icon} className='w-2.5'/>
@@ -44,7 +45,9 @@ const Navbar = () => {
                     <p className='hover:text-black cursor-pointer' onClick={logout}>Logout</p>
                 </div>
             </div>
-        </div>:<button onClick={()=>{navigate('/login')}} className='bg-primary px-8 py-3 text-white rounded-full font-light hidden md:block'>Create account</button>
+        </div>:<><button onClick={()=>{navigate('/login')}} className='bg-primary px-8 py-3 text-white rounded-full font-light hidden md:block'>Create account</button>
+        <a href='https://doctor-appointment-admin-five.vercel.app/' target='_blank'>HII</a>
+               </>
         }
         <img onClick={()=>{setShowMenu(true)}} src={assets.menu_icon} alt="" className='w-6 md:hidden'/>
         {/* mobile menu */}
@@ -61,6 +64,7 @@ const Navbar = () => {
           </ul>
         </div>
       </div>
+      
     </div>
   )
 }
