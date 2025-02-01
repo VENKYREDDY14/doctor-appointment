@@ -4,7 +4,7 @@ import {assets} from '../assets/assets'
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
-const Myprofile = () => {
+const MyProfile = () => {
   const {userData,setUserData,token,backendUrl,loadUserProfileData}=useContext(AppContext)
 
   const [isEdit,setIsEdit]=useState(false);
@@ -117,4 +117,4 @@ const Myprofile = () => {
   )
 }
 
-export default Myprofile
+export default MyProfile
