@@ -77,7 +77,7 @@ const Login = () => {
         <p>
   Admin Login 
   <span 
-    onClick={() => window.location.href = 'https://doctor-appointment-admin-five.vercel.app/'} 
+    onClick={() => window.location.href = 'https://doctor-appointment-admin-five.vercel.app/login'} 
     className="text-primary underline cursor-pointer"
   >
     Click here

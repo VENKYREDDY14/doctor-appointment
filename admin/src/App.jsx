@@ -20,7 +20,7 @@ import DoctorProfile from './pages/Doctor/DoctorProfile';
 const App = () => {
   const {aToken}=useContext(AdminContext);
   const {dToken}=useContext(DoctorContext)
-  return aToken || dToken ?(
+  return (
     <div className='bg-[#F8F9FD]'>
      <ToastContainer/>
      <Navbar/>
@@ -38,14 +38,10 @@ const App = () => {
         <Route path="/doctor-dashboard" element={<DoctorDashboard/>}/>
         <Route path="/doctor-appointments" element={<DoctorAppointments/>}/>
         <Route path="/doctor-profile" element={<DoctorProfile/>}/>
+        <Route path="login" element={<Login/>}/>
       </Routes>
      </div>
     </div>
-  ):(
-    <>
-    <Login/>
-    <ToastContainer/>
-    </>
   )
 }
 

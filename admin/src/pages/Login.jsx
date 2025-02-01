@@ -10,7 +10,7 @@ const Login = () => {
     const [state,setState]=useState('Admin');
     const [email,setEmail]=useState('');
     const [password,setPassword]=useState('');
-
+ 
     const {setAToken,backendUrl}=useContext(AdminContext);
     const {setDToken}=useContext(DoctorContext)
 
@@ -61,7 +61,7 @@ const Login = () => {
              <p>
   User Login 
   <span 
-    onClick={() => window.location.href = 'https://doctor-appointment-brown.vercel.app/login'} 
+    onClick={() => window.location.href = 'https://doctor-appointment-brown.vercel.app/user-login'} 
     className="text-primary underline cursor-pointer"
   >
     Click here
