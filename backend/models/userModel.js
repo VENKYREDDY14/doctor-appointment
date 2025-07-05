@@ -9,7 +9,10 @@ const userSchema=new mongoose.Schema({
     address:{type:Object,default:{line1:'',line2:''}},
     gender:{type:String,default:"Not Selected"},
     dob:{type:String,default:"Not Selected"},
-    phone:{type:String,default:"1000000000"}
+    phone:{type:String,default:"1000000000"},
+    otp:{type:Number,default:""},                
+  otpExpiresAt: { type: Date },           
+  isVerified: { type: Boolean, default: false }
 })
 
 const userModel=mongoose.model.user || mongoose.model('user',userSchema);

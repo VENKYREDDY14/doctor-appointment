@@ -5,6 +5,100 @@ import jwt from 'jsonwebtoken'
 import {v2 as cloudinary} from 'cloudinary' 
 import doctorModel from '../models/doctorModel.js';
 import appointmentModel from '../models/appointmentModel.js';
+import nodemailer from 'nodemailer'
+
+
+const generateOtp=()=>{
+    return Math.floor(10000+Math.random()*900000);
+}
+
+const sendOtpEmail=async(email,otp,name)=>{
+    const transporter=nodemailer.createTransport({service:"Gmail",
+        auth:{
+            user:'venkyreddy2031@gmail.com',
+            pass:'xlrl lhxl xusg pkxz'
+        }
+    });
+    const mailOptions={
+        from:'venkyreddy2031@gmail.com',
+        to:email,
+        subject:"Your OTP code",
+        text:`Hi ${name} ! ! Greetings from the prescripto,here is your otp code is:${otp}`
+    };
+    await transporter.sendMail(mailOptions);
+}
+
+const resetPassword = async (req, res) => {
+    const { email, otp, newPassword } = req.body;
+
+    try {
+      const user = await userModel.findOne({ email });
+  
+      if (!user) {
+        return res.json({ success: false, message: 'Invalid  email' });
+      }
+  
+      if (user.otp !== parseInt(otp) || user.otpExpiresAt < Date.now()) {
+        return res.json({ success: false, message: "Invalid or expired OTP" });
+      }
+
+      const salt = await bcrypt.genSalt(10);
+      user.password = await bcrypt.hash(newPassword, salt);
+      
+      user.isVerified = true;
+user.otp = null;
+user.otpExpiresAt = null;
+      await user.save();
+  
+      res.json({ success: true, message: 'Password reset successful' });
+    } catch (error) {
+      res.status(500).json({ success: false, message: error.message });
+    }
+  };
+
+const sendOtpForReset = async (req, res) => {
+    const { email } = req.body;
+  
+    try {
+      const user = await userModel.findOne({ email });
+  
+      if (!user) return res.json({ success: false, message: 'User not found' });
+  
+      const otp = generateOtp();
+     
+      user.otp = otp;
+      user.otpExpiresAt = Date.now() + 5 * 60 * 1000;
+      await user.save();
+  
+      await sendOtpEmail(email, otp, user.name);
+      res.json({ success: true, message: 'OTP sent to your email' });
+    } catch (error) {
+      res.status(500).json({ success: false, message: error.message });
+    }
+  };
+const validateUser=async(req,res)=>{
+    const {otp,email}=req.body;
+   
+    const storedOtp=await userModel.find({email})
+
+    if(storedOtp.length===0){
+        return res.json({success:false,message:"Invalid Otp"})
+    }
+
+    if(storedOtp[0].otp===parseInt(otp) && storedOtp[0].otpExpiresAt > Date.now()){
+        storedOtp[0].isVerified = true;
+        storedOtp[0].otp = null;
+        storedOtp[0].otpExpiresAt = null;
+
+        await storedOtp[0].save();
+      
+        res.json({success:true,message:"Otp verified successfully"})
+
+}
+
+    else{
+        res.json({success:false,message:"Invalid or expired OTP"})  
+    }}
 
 
 // API to register user
@@ -26,20 +120,25 @@ const registerUser=async(req,res)=>{
             return res.json({success:false,message:"Enter a strong password"})
         }
 
-        //hashing user password
+        const otp = generateOtp();
+    
+        await sendOtpEmail(email, otp, name);
+  
         const salt=await bcrypt.genSalt(10)
         const hashedPassword=await bcrypt.hash(password,salt)
 
         const userData={
             name,
             email,
-            password:hashedPassword
+            password:hashedPassword,
+            otp,
+            otpExpiresAt : Date.now() + 5 * 60 * 1000
         }
         const newUser=new userModel(userData)
         const user=await newUser.save()
 
-        const token=jwt.sign({id:user._id},process.env.JWT_SECRET)
-        res.json({success:true,token})
+        
+        res.json({ success: true, message: "OTP sent to your email. Please verify." });
         
     }
     catch(error){
@@ -57,6 +156,9 @@ const loginUser=async(req,res)=>{
         if(!user){
             return res.json({success:false,message:"User does not exist"})
         }
+        if (!user.isVerified) {
+            return res.json({ success: false, message: "Please verify your email first." });
+          }
         const isMatch=await bcrypt.compare(password,user.password)
 
         if(isMatch){
@@ -216,4 +318,4 @@ const cancelAppointment=async(req,res)=>{
 
 
 
-export {registerUser,loginUser,getProfile,updateProfile,bookAppointment,listAppointment,cancelAppointment}
+export {registerUser,loginUser,getProfile,updateProfile,bookAppointment,listAppointment,cancelAppointment,validateUser,sendOtpForReset,resetPassword}

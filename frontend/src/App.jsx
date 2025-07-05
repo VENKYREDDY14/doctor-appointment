@@ -10,6 +10,7 @@ import MyAppointments from './pages/MyAppointments'
 import Appointment from './pages/Appointment'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import ForgotPassword from './pages/forgot'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/login" element={<Login/>}/>
         <Route path="/my-appointments" element={<MyAppointments/>}/>
         <Route path="/appointments/:docId" element={<Appointment/>}/>
+        <Route path="/forgot-password" element={<ForgotPassword/>}/>
       </Routes>
       <Footer/>
     </div>
