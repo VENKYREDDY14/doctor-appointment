@@ -34,7 +34,7 @@ const Navbar = () => {
         </NavLink>
       </ul>
       <div className='flex items-center gap-4'>
-      <a href='https://doctor-appointment-admin-five.vercel.app/' target='_blank'><button className='border rounded-full border-gray-600 px-4 py-1 hover:bg-primary hover:text-white hover:border-primary'>Admin</button></a>
+      <a href='https://doctor-appointment-sq43.vercel.app/' target='_blank'><button className='border rounded-full border-gray-600 px-4 py-1 hover:bg-primary hover:text-white hover:border-primary'>Admin</button></a>
         {token && userData?<div className='flex items-center gap-2 cursor-pointer group relative'>
             <img src={userData.image} className='w-8 rounded-full' alt=""/>
             <img src={assets.dropdown_icon} className='w-2.5'/>
